@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="tree-values-viewer",
-    version="0.1.0",
+    version="0.1.4",
     author="Burak Keskin",
     author_email="me@burak.dev",
     description="A tool to view project tree and file contents",
@@ -21,7 +21,7 @@ setup(
     python_requires=">=3.6",
     entry_points={
         "console_scripts": [
-            "tree-values=tree_values.tree_values:main",
+            'view-project=tree_values:main',
         ],
     },
 )

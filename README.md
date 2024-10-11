@@ -24,7 +24,7 @@ pip install setuptools wheel twine
 python setup.py sdist bdist_wheel
 
 # Upload to Test PyPI (optional)
-twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+twine upload dist/* --repository-url https://upload.pypi.org/legacy/ -u __token__ -p $PYPI_API_TOKEN
 
 # Upload to PyPI
-twine upload dist/*
+twine upload dist/* -u __token__ -p $PYPI_API_TOKEN
