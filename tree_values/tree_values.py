@@ -86,7 +86,7 @@ def print_values_info(additional_ignores):
 def main():
     parser = argparse.ArgumentParser(description="Project tree and values viewer.")
     parser.add_argument('command', choices=['tree', 'values', 'values-info'],
-                        help="tree: View project tree, values: View file names and contents, values-info: View file information")
+                        help="tree: View project tree, values: View file names and contents, values-info: View file information including line count.")
     parser.add_argument('--ignore', help="Comma separated list of additional files or directories to ignore.",
                         default="")
 

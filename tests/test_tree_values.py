@@ -86,7 +86,7 @@ class TestProjectTreeViewer(unittest.TestCase):
 
     @patch('sys.argv', ['script_name', 'values-info'])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_main_values_info(self, mock_stdout):
+    def test_main_values-info(self, mock_stdout):
         main()
         output = mock_stdout.getvalue()
         self.assertIn('File Path', output)
