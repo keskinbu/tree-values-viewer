@@ -1,0 +1,27 @@
+# Testing
+pytest
+pytest-cov
+
+# Linting and formatting
+flake8
+black
+
+# Type checking
+mypy
+
+# Documentation
+Sphinx
+
+# Development tools
+ipython
+
+# Project dependencies
+prettytable
+
+# Packaging and distribution
+twine
+wheel
+setuptools
+
+# Version control
+pre-commit

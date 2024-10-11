@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="tree-values-viewer",
-    version="0.1.4",
+    version="0.1.5",
     author="Burak Keskin",
     author_email="me@burak.dev",
     description="A tool to view project tree and file contents",
@@ -13,6 +13,9 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/keskinbu/tree-values-viewer",
     packages=find_packages(),
+    install_requires=[
+        'prettytable',
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

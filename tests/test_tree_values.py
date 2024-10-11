@@ -6,10 +6,9 @@ from contextlib import redirect_stdout
 import tempfile
 import os
 import shutil
+from prettytable import PrettyTable
 
-# Assuming your main script is named 'tree_values.py'
-# Update this import statement with the correct filename if it's different
-from tree_values import should_ignore, print_tree, print_values, main
+from tree_values.tree_values import should_ignore, print_tree, print_values, print_values_info, main
 
 class TestProjectTreeViewer(unittest.TestCase):
 
@@ -20,8 +19,10 @@ class TestProjectTreeViewer(unittest.TestCase):
 
         # Create a simple directory structure for testing
         os.makedirs('test_folder/subfolder')
-        open('test_folder/file1.txt', 'w').close()
-        open('test_folder/subfolder/file2.txt', 'w').close()
+        with open('test_folder/file1.txt', 'w') as f:
+            f.write('Line 1\nLine 2\nLine 3\n')
+        with open('test_folder/subfolder/file2.txt', 'w') as f:
+            f.write('Line 1\nLine 2\n')
         os.makedirs('node_modules')
         open('node_modules/should_ignore.txt', 'w').close()
 
@@ -54,6 +55,19 @@ class TestProjectTreeViewer(unittest.TestCase):
         self.assertIn('test content', output)
         self.assertNotIn('node_modules', output)
 
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_print_values_info(self, mock_stdout):
+        print_values_info([])
+        output = mock_stdout.getvalue()
+        self.assertIn('File Path', output)
+        self.assertIn('Line Count', output)
+        self.assertIn('./test_folder/file1.txt', output)
+        self.assertIn('3', output)  # 3 lines in file1.txt
+        self.assertIn('./test_folder/subfolder/file2.txt', output)
+        self.assertIn('2', output)  # 2 lines in file2.txt
+        self.assertIn('Total lines of code: 5', output)
+        self.assertNotIn('node_modules', output)
+
     @patch('sys.argv', ['script_name', 'tree'])
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_main_tree(self, mock_stdout):
@@ -69,6 +83,19 @@ class TestProjectTreeViewer(unittest.TestCase):
         output = mock_stdout.getvalue()
         self.assertIn('File: ./test_folder/file1.txt', output)
         self.assertIn('test content', output)
+
+    @patch('sys.argv', ['script_name', 'values-info'])
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_main_values_info(self, mock_stdout):
+        main()
+        output = mock_stdout.getvalue()
+        self.assertIn('File Path', output)
+        self.assertIn('Line Count', output)
+        self.assertIn('./test_folder/file1.txt', output)
+        self.assertIn('3', output)  # 3 lines in file1.txt
+        self.assertIn('./test_folder/subfolder/file2.txt', output)
+        self.assertIn('2', output)  # 2 lines in file2.txt
+        self.assertIn('Total lines of code: 5', output)
 
     @patch('sys.argv', ['script_name', 'tree', '--ignore', 'test_folder'])
     @patch('sys.stdout', new_callable=io.StringIO)
