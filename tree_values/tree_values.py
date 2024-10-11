@@ -3,8 +3,8 @@ import argparse
 
 # Common files and folders to ignore
 COMMON_IGNORES = [
-    "dist", "node_modules", "venv", ".terraform", ".next", "job-posts",
-    ".terraform.lock.hcl", "package-lock.json", "theme", "public"
+    "dist", "node_modules", "venv", ".terraform", ".next",
+    ".terraform.lock.hcl", "package-lock.json"
 ]
 
 def should_ignore(path, additional_ignores):
@@ -21,7 +21,7 @@ def should_ignore(path, additional_ignores):
 
 def print_tree(additional_ignores):
     """Display the project tree"""
-    for root, dirs, files in os.walk('..'):
+    for root, dirs, files in os.walk('.'):
         # Filter directories and files
         dirs[:] = [d for d in dirs if not should_ignore(os.path.join(root, d), additional_ignores)]
         files = [f for f in files if not should_ignore(os.path.join(root, f), additional_ignores)]
@@ -35,7 +35,7 @@ def print_tree(additional_ignores):
 
 def print_values(additional_ignores):
     """Print file contents and names"""
-    for root, dirs, files in os.walk('..'):
+    for root, dirs, files in os.walk('.'):
         # Filter directories and files
         dirs[:] = [d for d in dirs if not should_ignore(os.path.join(root, d), additional_ignores)]
         files = [f for f in files if not should_ignore(os.path.join(root, f), additional_ignores)]
